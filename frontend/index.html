@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Premier Mortgage Solutions</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Premier Mortgage Solutions</h1>
+            <p>Your Trusted Partner in Canadian Home Financing</p>
+        </header>
+
+        <main class="main-content">
+            <div class="form-container">
+                <h2>Get in Touch with Our Experts</h2>
+                <p class="form-description">Tell us about your mortgage needs and we'll connect you with the right solution!</p>
+                
+                <form id="inquiryForm" class="inquiry-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="e.g., (416) 555-0123">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inquiryType">Reason for Contact *</label>
+                        <select id="inquiryType" name="inquiryType" required>
+                            <option value="">Select your inquiry type...</option>
+                            <option value="home-purchase">Home Purchase Mortgage</option>
+                            <option value="refinancing">Mortgage Refinancing</option>
+                            <option value="pre-approval">Mortgage Pre-Approval</option>
+                            <option value="investment-property">Investment Property Mortgage</option>
+                            <option value="rate-inquiry">Current Rate Information</option>
+                            <option value="existing-customer">Existing Customer Support</option>
+                            <option value="general-question">General Questions</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="propertyValue">Estimated Property Value (CAD)</label>
+                            <select id="propertyValue" name="propertyValue">
+                                <option value="">Select range...</option>
+                                <option value="under-300k">Under $300,000</option>
+                                <option value="300k-500k">$300,000 - $500,000</option>
+                                <option value="500k-750k">$500,000 - $750,000</option>
+                                <option value="750k-1m">$750,000 - $1,000,000</option>
+                                <option value="1m-1.5m">$1,000,000 - $1,500,000</option>
+                                <option value="over-1.5m">Over $1,500,000</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="loanAmount">Desired Mortgage Amount (CAD)</label>
+                            <select id="loanAmount" name="loanAmount">
+                                <option value="">Select range...</option>
+                                <option value="under-250k">Under $250,000</option>
+                                <option value="250k-500k">$250,000 - $500,000</option>
+                                <option value="500k-750k">$500,000 - $750,000</option>
+                                <option value="750k-1m">$750,000 - $1,000,000</option>
+                                <option value="1m-1.5m">$1,000,000 - $1,500,000</option>
+                                <option value="over-1.5m">Over $1,500,000</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="creditScore">Credit Score Range</label>
+                            <select id="creditScore" name="creditScore">
+                                <option value="">Select range...</option>
+                                <option value="excellent">Excellent (800+)</option>
+                                <option value="very-good">Very Good (740-799)</option>
+                                <option value="good">Good (670-739)</option>
+                                <option value="fair">Fair (580-669)</option>
+                                <option value="poor">Poor (300-579)</option>
+                                <option value="unknown">Not Sure</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="timeframe">When do you need this?</label>
+                            <select id="timeframe" name="timeframe">
+                                <option value="">Select timeframe...</option>
+                                <option value="asap">As soon as possible</option>
+                                <option value="1-month">Within 1 month</option>
+                                <option value="2-3-months">2-3 months</option>
+                                <option value="3-6-months">3-6 months</option>
+                                <option value="6-months-plus">6+ months</option>
+                                <option value="just-exploring">Just exploring options</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="propertyLocation">Property Location (City, Province)</label>
+                            <input type="text" id="propertyLocation" name="propertyLocation" placeholder="e.g., Toronto, ON">
+                        </div>
+                        <div class="form-group">
+                            <label for="province">Province/Territory</label>
+                            <select id="province" name="province">
+                                <option value="">Select province...</option>
+                                <option value="AB">Alberta</option>
+                                <option value="BC">British Columbia</option>
+                                <option value="MB">Manitoba</option>
+                                <option value="NB">New Brunswick</option>
+                                <option value="NL">Newfoundland and Labrador</option>
+                                <option value="NS">Nova Scotia</option>
+                                <option value="ON">Ontario</option>
+                                <option value="PE">Prince Edward Island</option>
+                                <option value="QC">Quebec</option>
+                                <option value="SK">Saskatchewan</option>
+                                <option value="NT">Northwest Territories</option>
+                                <option value="NU">Nunavut</option>
+                                <option value="YT">Yukon</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="currentSituation">Current Housing Situation</label>
+                        <select id="currentSituation" name="currentSituation">
+                            <option value="">Select...</option>
+                            <option value="first-time-buyer">First-time home buyer</option>
+                            <option value="current-homeowner">Current homeowner</option>
+                            <option value="renting">Currently renting</option>
+                            <option value="investor">Real estate investor</option>
+                            <option value="relocating">Relocating within Canada</option>
+                            <option value="new-to-canada">New to Canada</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mortgageType">Preferred Mortgage Type</label>
+                        <select id="mortgageType" name="mortgageType">
+                            <option value="">Select type...</option>
+                            <option value="fixed-rate">Fixed Rate Mortgage</option>
+                            <option value="variable-rate">Variable Rate Mortgage</option>
+                            <option value="hybrid">Hybrid/Split Mortgage</option>
+                            <option value="open-mortgage">Open Mortgage</option>
+                            <option value="closed-mortgage">Closed Mortgage</option>
+                            <option value="not-sure">Not sure yet</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="additionalDetails">Additional Details</label>
+                        <textarea id="additionalDetails" name="additionalDetails" rows="4" placeholder="Please provide any additional information about your mortgage needs, specific questions, or circumstances we should know about..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="preferredContact">Preferred Contact Method</label>
+                        <select id="preferredContact" name="preferredContact">
+                            <option value="">Select preference...</option>
+                            <option value="phone">Phone Call</option>
+                            <option value="email">Email</option>
+                            <option value="text">Text Message</option>
+                            <option value="any">Any method is fine</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bestTimeToCall">Best Time to Call (Eastern Time)</label>
+                        <select id="bestTimeToCall" name="bestTimeToCall">
+                            <option value="">Select time...</option>
+                            <option value="morning">Morning (8AM - 12PM)</option>
+                            <option value="afternoon">Afternoon (12PM - 5PM)</option>
+                            <option value="evening">Evening (5PM - 8PM)</option>
+                            <option value="anytime">Anytime</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <span class="btn-text">Submit Inquiry</span>
+                        <span class="btn-loading" style="display: none;">Sending...</span>
+                    </button>
+                </form>
+
+                <div id="successMessage" class="success-message" style="display: none;">
+                    <h3>Thank you for your inquiry!</h3>
+                    <p>We've received your mortgage inquiry and one of our mortgage specialists will contact you within 24 hours to discuss your financing options.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 Premier Mortgage Solutions. Licensed Mortgage Brokerage - FSRA License #12345</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
