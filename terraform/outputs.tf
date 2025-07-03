@@ -14,8 +14,13 @@ output "aws_ses_email_identity" {
 }
 
 output "aws_api_gateway_name" {
-  value = aws_api_gateway_rest_api.api_gateway.name
+  value = aws_api_gateway_rest_api.contact_form_api.name
   description = "Name of the API Gateway for the contact form"
+}
+
+output "aws_api_gateway_url" {
+  value = "https://${aws_api_gateway_rest_api.contact_form_api.id}.execute-api.${var.aws_region}.amazonaws.com/${aws_api_gateway_stage.contact_form_stage.stage_name}/contact-form"
+  description = "POST Endpoint URL for the contact form API"
 }
 
 output "lambda_iam_role_name" {
@@ -28,14 +33,7 @@ output "lambda_iam_role_policy_name" {
   description = "Name of the IAM policy for the Lambda function"
 }
 
-/*
 output "lambda_function_name_contact_form" {
   value = aws_lambda_function.contact_form_lambda_handler.function_name
   description = "Name of the Lambda function for handling contact form submissions"
 }
-
-output "lambda_function_name_email_preparation" {
-  value = aws_lambda_function.email_preparation_lambda_handler.function_name
-  description = "Name of the Lambda function for preparing and sending emails"
-}
-*/

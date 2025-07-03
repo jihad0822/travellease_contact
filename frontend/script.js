@@ -5,6 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnLoading = submitBtn.querySelector(".btn-loading")
   const successMessage = document.getElementById("successMessage")
 
+  // API Gateway URL
+  // Hardcoded for development
+  const apiGatewayUrl = "https://5di6h9kd7e.execute-api.ca-central-1.amazonaws.com/dev/contact-form"
+
   // Form validation rules
   const validationRules = {
     firstName: {
@@ -135,13 +139,18 @@ document.addEventListener("DOMContentLoaded", () => {
   function packageFormDataAsJSON() {
     const formData = new FormData(form)
     const jsonData = {
-      // Personal Information
-      personalInfo: {
+
+      // Full Name
+      fullName: {
         firstName: formData.get("firstName")?.trim() || "",
         lastName: formData.get("lastName")?.trim() || "",
-        email: formData.get("email")?.trim() || "",
-        phone: formData.get("phone")?.trim() || "",
       },
+
+      // Email
+      email: formData.get("email")?.trim() || "",
+
+      // Phone
+      phone: formData.get("phone")?.trim() || "",
 
       // Inquiry Details
       inquiryDetails: {
@@ -192,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Canadian Mortgage Inquiry JSON Payload:", JSON.stringify(jsonPayload, null, 2))
 
       // Make API call
-      const response = await fetch("/api/mortgage-inquiries", {
+      const response = await fetch(apiGatewayUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

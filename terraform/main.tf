@@ -3,7 +3,15 @@ resource "aws_s3_bucket" "s3_bucket" {
     bucket = var.aws_s3_bucket_name
     
     tags = {
-        Name = "TravelEase Website Bucket"
+        Name = "PremierMortgage Website Bucket"
+    }
+}
+
+// S3 Bucket Ownership Controls
+resource "aws_s3_bucket_ownership_controls" "s3_bucket_ownership_controls" {
+    bucket = aws_s3_bucket.s3_bucket.id 
+    rule {
+        object_ownership = "BucketOwnerPreferred"
     }
 }
 
@@ -33,50 +41,36 @@ resource "aws_s3_bucket_policy" "s3_bucket_policy" {
             },
         ]
     })
-}
-
-// S3 Bucket Ownership Controls
-resource "aws_s3_bucket_ownership_controls" "s3_bucket_ownership_controls" {
-    bucket = aws_s3_bucket.s3_bucket.id 
-    rule {
-        object_ownership = "BucketOwnerPreferred"
-    }
-}
-
-/* Enable CORS on the S3 bucket
-resource "aws_s3_bucket_cors_configuration" "s3_bucket_cors_configuration" {
-    bucket = aws_s3_bucket.s3_bucket.id
-    cors_rule {
-        allowed_headers = ["*"]
-        allowed_methods = ["GET", "POST", "PUT"]
-        allowed_origins = ["*"]
-        expose_headers  = []
-        max_age_seconds = 3000
-    }
-}  */ 
+} 
 
 // Add index.html to the S3 bucket
 resource "aws_s3_object" "index_html" {
     bucket = aws_s3_bucket.s3_bucket.id
     key    = "index.html"
-    source = "~/CEA/projects/contact_form_aws_project/website/index.html"
+    source = "${path.module}/../frontend/index.html"
     content_type = "text/html"
+
+    etag = filemd5("${path.module}/../frontend/index.html")
 }
 
 // Add style.css to the S3 bucket
 resource "aws_s3_object" "style_css" {
     bucket = aws_s3_bucket.s3_bucket.id
     key    = "styles.css"
-    source = "~/CEA/projects/contact_form_aws_project/website/styles.css"
+    source = "${path.module}/../frontend/styles.css"
     content_type = "text/css"
+
+    etag = filemd5("${path.module}/../frontend/styles.css")
 }   
 
 // Add script.js to the S3 bucket
 resource "aws_s3_object" "script_js" {
     bucket = aws_s3_bucket.s3_bucket.id
     key    = "script.js"
-    source = "~/CEA/projects/contact_form_aws_project/website/script.js"
+    source = "${path.module}/../frontend/script.js"
     content_type = "application/javascript"
+
+    etag = filemd5("${path.module}/../frontend/script.js")
 }  
 
 // S3 Bucket Website Configuration

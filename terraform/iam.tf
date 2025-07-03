@@ -32,7 +32,7 @@ resource "aws_iam_role_policy" "lambda_iam_role_policy" {
                 Action = [
                     "dynamodb:PutItem",
                     "dynamodb:UpdateItem",
-                    "dynamodb:GetItem",
+                    "dynamodb:GetItem"
                 ]
                 Resource = "${aws_dynamodb_table.dynamodb_table.arn}"
             },
@@ -52,7 +52,7 @@ resource "aws_iam_role_policy" "lambda_iam_role_policy" {
                     "logs:PutLogEvents"
                 ]
                 Resource = "*"
-            }
+            },
         ]
     })
 }
