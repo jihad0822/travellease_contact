@@ -1,6 +1,10 @@
 {
   "name": "contact-form-lambda",
   "version": "1.0.0",
+  "description": "Lambda function for contact form",
   "type": "module",
-  "main": "index.js"
+  "main": "index.js",
+  "dependencies": {
+    "aws-sdk": "^2.1692.0"
+  }
 }

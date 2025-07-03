@@ -1,0 +1,10 @@
+# Ignore node/modules
+node_modules/
+
+# Ignore Terraform State Files
+terraform.tfstate
+terraform.tfstate.backup
+
+# Ignore .terraform
+.terraform/
+.terraform.lock.hcl

@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // API Gateway URL
   // Hardcoded for development
-  const apiGatewayUrl = "https://5di6h9kd7e.execute-api.ca-central-1.amazonaws.com/dev/contact-form"
+  const apiGatewayUrl = ""
 
   // Form validation rules
   const validationRules = {
@@ -140,11 +140,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const formData = new FormData(form)
     const jsonData = {
 
-      // Full Name
-      fullName: {
-        firstName: formData.get("firstName")?.trim() || "",
-        lastName: formData.get("lastName")?.trim() || "",
-      },
+      // Name
+      firstName: formData.get("firstName")?.trim() || "",
+      lastName: formData.get("lastName")?.trim() || "",
 
       // Email
       email: formData.get("email")?.trim() || "",

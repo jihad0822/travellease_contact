@@ -97,6 +97,11 @@ resource "aws_api_gateway_integration_response" "contact_form_cors_integration_r
         "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
         "method.response.header.Access-Control-Allow-Methods" = "'OPTIONS,POST'"
     }
+
+    depends_on = [ 
+        aws_api_gateway_method_response.contact_form_cors_method_response,
+        aws_api_gateway_integration.contact_form_cors_integration
+    ]
 }
 
 // Create API Gateway Deployment

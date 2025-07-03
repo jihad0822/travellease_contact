@@ -86,15 +86,15 @@ resource "aws_s3_bucket_website_configuration" "s3_bucket_website_configuration"
 resource "aws_dynamodb_table" "dynamodb_table" {
     name = var.aws_dynamodb_table_name
     billing_mode = "PAY_PER_REQUEST"
-    hash_key = "ReferenceId"
+    hash_key = "referenceId"
 
-    stream_enabled = true // Enabled to trigger Lambda function
-    stream_view_type = "NEW_IMAGE" // Capture new item creation
+    // stream_enabled = true // Enabled to trigger Lambda function
+    // stream_view_type = "NEW_IMAGE" // Capture new item creation
 
     deletion_protection_enabled = false // Disable deletion protection for the table for project
 
     attribute {
-        name = "ReferenceId"
+        name = "referenceId"
         type = "S"
     }
 
@@ -115,7 +115,7 @@ resource "aws_dynamodb_table" "dynamodb_table" {
     }
     */
     tags = {
-        Name = "TravelEase Contact Form Responses"
+        Name = "Premier Mortgage Contact Form Responses"
     }
 }
 
