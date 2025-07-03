@@ -36,6 +36,12 @@ variable "aws_api_gateway_rest_api_name" {
     default = "PremierMortgage-API-ContactForm"
 }
 
+variable "aws_api_gateway_stage_name" {
+  description = "The name of the API Gateway Stage Name"
+  type = string
+  default = "dev"
+}
+
 
 // Lambda Function Variables
 variable "lambda_function_name_contact_form" {

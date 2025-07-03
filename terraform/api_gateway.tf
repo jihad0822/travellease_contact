@@ -137,6 +137,6 @@ resource "aws_api_gateway_deployment" "contact_form_deployment" {
 // Create API Gateway Stage
 resource "aws_api_gateway_stage" "contact_form_stage" {
     rest_api_id = aws_api_gateway_rest_api.contact_form_api.id
-    stage_name  = "dev"
+    stage_name  = var.aws_api_gateway_stage_name
     deployment_id = aws_api_gateway_deployment.contact_form_deployment.id
 }

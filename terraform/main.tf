@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "s3_bucket" {
     bucket = var.aws_s3_bucket_name
     
     tags = {
-        Name = "PremierMortgage Website Bucket"
+        Name = "Contact Form Website Bucket"
     }
 }
 
@@ -88,9 +88,6 @@ resource "aws_dynamodb_table" "dynamodb_table" {
     billing_mode = "PAY_PER_REQUEST"
     hash_key = "referenceId"
 
-    // stream_enabled = true // Enabled to trigger Lambda function
-    // stream_view_type = "NEW_IMAGE" // Capture new item creation
-
     deletion_protection_enabled = false // Disable deletion protection for the table for project
 
     attribute {
@@ -98,24 +95,8 @@ resource "aws_dynamodb_table" "dynamodb_table" {
         type = "S"
     }
 
-    /*
-    attribute {
-        name = "Name"
-        type = "S"
-    }
-
-    attribute {
-        name = "Email"
-        type = "S"
-    }
-
-    attribute {
-        name = "Body"
-        type = "S"
-    }
-    */
     tags = {
-        Name = "Premier Mortgage Contact Form Responses"
+        Name = "Contact Form Responses Database"
     }
 }
 
