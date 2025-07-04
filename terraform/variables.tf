@@ -23,9 +23,21 @@ variable "aws_dynamodb_table_name" {
 
 // SES Variables
 variable "aws_ses_email_identity" {
-  description = "The email identity for SES to send emails from"
+  description = "The email identity for SES"
   type = string
   default = "gur_579@hotmail.com"
+}
+
+variable "aws_ses_configuration_set" {
+  description = "Name for SES configuration set"
+  type = string
+  default = "PremierMortgage-Configuration-Set"
+}
+
+variable "aws_ses_receipt_rule_set" {
+  description = "Name of SES receipt rule set"
+  type = string
+  default = "PremierMortgage-Receipt-Rule-Set"
 }
 
 

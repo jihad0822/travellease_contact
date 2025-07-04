@@ -47,7 +47,6 @@ resource "aws_api_gateway_integration" "contact_form_cors_integration" {
     resource_id = aws_api_gateway_resource.contact_form.id
     http_method = aws_api_gateway_method.contact_form_cors_method.http_method
     type = "MOCK"
-    integration_http_method = "OPTIONS"
     request_templates = {
         "application/json" = jsonencode({
             statusCode = 200
@@ -115,23 +114,17 @@ resource "aws_api_gateway_deployment" "contact_form_deployment" {
             aws_api_gateway_method.contact_form_post_method.id,
             aws_api_gateway_method.contact_form_cors_method.id,
             aws_api_gateway_integration.contact_form_post_integration.id,
-            aws_api_gateway_integration.contact_form_cors_integration.id,   
+            aws_api_gateway_integration.contact_form_cors_integration.id, 
+            aws_api_gateway_method_response.contact_form_post_method_response.id,
+            aws_api_gateway_method_response.contact_form_cors_method_response.id,
+            aws_api_gateway_integration_response.contact_form_cors_integration_response.id,  
         ]))
+        
     }
 
     lifecycle {
         create_before_destroy = true
     }
-
-    depends_on = [ 
-        aws_api_gateway_method.contact_form_post_method,
-        aws_api_gateway_integration.contact_form_post_integration,
-        aws_api_gateway_method.contact_form_cors_method,
-        aws_api_gateway_integration.contact_form_cors_integration,
-        aws_api_gateway_method_response.contact_form_post_method_response,
-        aws_api_gateway_method_response.contact_form_cors_method_response,
-        aws_api_gateway_integration_response.contact_form_cors_integration_response,
-    ]
 }
 
 // Create API Gateway Stage
