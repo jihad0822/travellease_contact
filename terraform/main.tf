@@ -15,32 +15,12 @@ resource "aws_s3_bucket_ownership_controls" "s3_bucket_ownership_controls" {
     }
 }
 
-// Allow Public Access Block Configuration
-resource "aws_s3_bucket_public_access_block" "s3_bucket_public_access_block" {
-    bucket = aws_s3_bucket.s3_bucket.id
-
-    block_public_acls       = false
-    block_public_policy     = false
-    ignore_public_acls      = false
-    restrict_public_buckets = false
-}
-
-// S3 Bucket Policy to allow public read access
-resource "aws_s3_bucket_policy" "s3_bucket_policy" {
-    bucket = aws_s3_bucket.s3_bucket.id
-
-    policy = jsonencode({
-        Version = "2012-10-17"
-        Statement = [
-            {
-                Sid = "PublicReadGetObject"
-                Effect = "Allow"
-                Principal = "*"
-                Action = "s3:GetObject"
-                Resource = "${aws_s3_bucket.s3_bucket.arn}/*"
-            },
-        ]
-    })
+// S3 Bucket Website Configuration
+resource "aws_s3_bucket_website_configuration" "s3_bucket_website_configuration" {
+    bucket = aws_s3_bucket.s3_bucket.id 
+    index_document {
+        suffix = "index.html"
+    }
 } 
 
 // Add index.html to the S3 bucket
@@ -73,13 +53,35 @@ resource "aws_s3_object" "script_js" {
     etag = filemd5("${path.module}/../frontend/script.js")
 }  
 
-// S3 Bucket Website Configuration
-resource "aws_s3_bucket_website_configuration" "s3_bucket_website_configuration" {
-    bucket = aws_s3_bucket.s3_bucket.id 
-    index_document {
-        suffix = "index.html"
-    }
-}   
+// Allow Public Access Block Configuration
+resource "aws_s3_bucket_public_access_block" "s3_bucket_public_access_block" {
+    bucket = aws_s3_bucket.s3_bucket.id
+
+    block_public_acls       = false
+    block_public_policy     = false
+    ignore_public_acls      = false
+    restrict_public_buckets = false
+}
+
+// S3 Bucket Policy to allow public read access
+resource "aws_s3_bucket_policy" "s3_bucket_policy" {
+    bucket = aws_s3_bucket.s3_bucket.id
+
+    policy = jsonencode({
+        Version = "2012-10-17"
+        Statement = [
+            {
+                Sid = "PublicReadGetObject"
+                Effect = "Allow"
+                Principal = "*"
+                Action = "s3:GetObject"
+                Resource = "${aws_s3_bucket.s3_bucket.arn}/*"
+            },
+        ]
+    })
+
+    depends_on = [ aws_s3_bucket_public_access_block.s3_bucket_public_access_block ]
+} 
 
 
 // Create DynamoDB 
@@ -88,7 +90,7 @@ resource "aws_dynamodb_table" "dynamodb_table" {
     billing_mode = "PAY_PER_REQUEST"
     hash_key = "referenceId"
 
-    deletion_protection_enabled = false // Disable deletion protection for the table for project
+    deletion_protection_enabled = false // Disable deletion protection for the table for dev
 
     attribute {
         name = "referenceId"
@@ -105,3 +107,28 @@ resource "aws_dynamodb_table" "dynamodb_table" {
 resource "aws_ses_email_identity" "email_identity" {
     email = var.aws_ses_email_identity
 }   
+
+// SES Configuration Set to track bounce/complaints
+resource "aws_ses_configuration_set" "ses_configuration_set" {
+    name = var.aws_ses_configuration_set
+    
+    delivery_options {
+        tls_policy = "Require"
+    }
+    
+    reputation_metrics_enabled = true
+}
+
+// SES Configuration Set Destination
+resource "aws_ses_event_destination" "ses_event_destination" {
+  name                   = "${var.aws_ses_configuration_set}-event-destination"
+  configuration_set_name = aws_ses_configuration_set.ses_configuration_set.name
+  enabled                = true
+  matching_types         = ["bounce", "complaint"]
+
+  cloudwatch_destination {
+    default_value = "0"
+    dimension_name = "dimension"
+    value_source = "messageTag"
+  }
+}

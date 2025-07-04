@@ -1,5 +1,6 @@
 import AWS from 'aws-sdk';
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
+const ses = new AWS.SES();
     
 // CORS headers
 const corsHeaders = {
@@ -101,6 +102,7 @@ export const handler = async (event) => {
         console.log("Preparing data for DynamoDB...");
         const item = {
             referenceId: referenceId,
+            createdAt: new Date().toISOString(),
             firstName: body.firstName,
             lastName: body.lastName,
             email: body.email,
@@ -122,29 +124,120 @@ export const handler = async (event) => {
         console.log("Data successfully stored in DynamoDB");
 
 
-        /* Prepare email to send to user using SES
-        console.log("Preparing email for user...");
-        const ses = new AWS.SES();
-        const emailParams = {
-            Source: process.env.SES_SOURCE_EMAIL, // Ensure this environment variable is set
-            Destination: {
-                ToAddresses: [body.email],
-            },
-            Message: {
-                Subject: {
-                    Data: "Thank you for your inquiry!",
-                    Charset: "UTF-8",   
+        // Prepare email to send to user and business owner using SES
+        console.log("Preparing email to send to user...");
+
+        // Format inquiryDetails for email
+        // Function to format inquiry details for email display
+        const formatDetails = (details) => {
+            if (typeof details === 'object' && details !== null) {
+                // Convert the object to a nicely formatted string
+                return Object.entries(details)
+                .map(([key, value]) => {
+                    // Format the key to be more readable (convert camelCase to Title Case)
+                    const formattedKey = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                    return `${formattedKey}: ${value}`;
+                })
+                .join('\n');
+            }
+            return details || "N/A";
+        };
+
+        const sourceEmail = process.env.SES_EMAIL_IDENTITY;
+
+        const userEmailSubject = "Thank You For Your Mortgage Inquiry!";
+        const userEmailBody = `
+Dear ${body.firstName},
+
+Thank you for your inquiry. We have received your request and will get back to you soon.
+
+Inquiry Details:
+${formatDetails(body.inquiryDetails)}
+
+Your Reference ID: ${referenceId}
+
+We appreciate your interest and will contact you within 24-48 hours.
+
+Best regards,
+The Premier Mortgage Team
+        `;
+
+
+        // Preparing email to send to business owner
+        console.log("Preparing email to send to business owner...");
+
+        const businessEmailSubject = "New Inquiry Received - " + referenceId;
+        const businessEmailBody = `
+Lead details:
+
+Reference ID: ${referenceId}
+Submitted At: ${new Date().toISOString()}
+
+Name: ${body.firstName} ${body.lastName}
+Email: ${body.email}
+Phone: ${body.phone}
+
+Inquiry Details:
+${formatDetails(body.inquiryDetails)}
+
+Communication Preference: 
+${formatDetails(body.communicationPreferences)}
+        `
+
+        // Sending Emails
+        console.log("Sending emails...")
+
+        try {
+            const userEmailParams = {
+                Source: sourceEmail,
+                Destination: {
+                    ToAddresses: [sourceEmail], // sending email to myself for testing purposes; change to [body.email] in production
                 },
-                Body: {
-                    Text: {
-                        Data: `Hello ${body.firstName},\n\nThank you for reaching out to us! We have received your inquiry and will get back to you shortly.\n\nYour Reference ID: ${referenceId}\n\nBest regards,\nThe Premier Mortgage Team`,
-                        Charset: "UTF-8",
+                Message: {
+                    Subject: {
+                        Data: userEmailSubject,
+                        Charset: 'UTF-8',
+                    },
+                    Body: {
+                        Text: {
+                            Data: userEmailBody,
+                            Charset: 'UTF-8',
+                        },
                     },
                 },
-            },
-        };
-        */
-        
+            };
+
+            console.log("User email sending...");
+            await ses.sendEmail(userEmailParams).promise();
+
+            const businessEmailParams = {
+                Source: sourceEmail,
+                Destination: {
+                    ToAddresses: [sourceEmail],
+                },
+                Message: {
+                    Subject: {
+                        Data: businessEmailSubject,
+                        Charset: 'UTF-8',
+                    },
+                    Body: {
+                        Text: {
+                            Data: businessEmailBody,
+                            Charset: 'UTF-8',
+                        },
+                    },
+                },
+            };
+
+            console.log("Business email sending...");
+            await ses.sendEmail(businessEmailParams).promise();
+
+            console.log("Emails Sent!")
+        } catch (emailError) {
+            console.error("Error sending emails:", emailError);
+            // Don't fail the entire request since data is already stored in DynamoDB
+        }
+
 
         // Return success response
         console.log("Process completed successfully!");
