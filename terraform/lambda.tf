@@ -35,3 +35,49 @@ resource "aws_lambda_permission" "allow_contact_form_api_gateway" {
     // Source ARN for API Gateway
     source_arn = "${aws_api_gateway_rest_api.contact_form_api.execution_arn}/*/*"
 }
+
+
+// SNS Topic for Lambda Error Notifications
+resource "aws_sns_topic" "lambda_error" {
+    name = "${aws_lambda_function.contact_form_lambda_handler.function_name}-errors"
+}
+
+// Subscribe to SNS Topic
+resource "aws_sns_topic_subscription" "lambda_error_notification_email" {
+    topic_arn = aws_sns_topic.lambda_error.arn
+    protocol = "email"
+    endpoint = var.aws_sns_topic_subscription
+}
+
+// CloudWatch Log Metric Filter to catch ERROR/Error patterns
+resource "aws_cloudwatch_log_metric_filter" "error_filter" {
+  name           = "${aws_lambda_function.contact_form_lambda_handler.function_name}-error-metric-filter"
+  log_group_name = "/aws/lambda/${aws_lambda_function.contact_form_lambda_handler.function_name}"
+  pattern        = "ERROR"
+
+  metric_transformation {
+    name = "ErrorCount"
+    namespace = "Lambda/Errors"
+    value = "1"
+    default_value = "0"
+  }
+}
+
+// CloudWatch Alarm based on the metric filter
+resource "aws_cloudwatch_metric_alarm" "error_alarm" {
+  alarm_name = "${aws_lambda_function.contact_form_lambda_handler.function_name}-error-alarm"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods = "1"
+  metric_name = "ErrorCount"
+  namespace = "Lambda/Errors"
+  period = "300" 
+  statistic = "Sum"
+  threshold = "1"  
+  alarm_description = "Alert when Lambda logs contain ERROR"
+  alarm_actions = [aws_sns_topic.lambda_error.arn]
+  treat_missing_data = "notBreaching"
+
+  tags = {
+    Name = "${aws_lambda_function.contact_form_lambda_handler.function_name}-error-alarm"
+  }
+}

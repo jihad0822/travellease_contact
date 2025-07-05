@@ -125,7 +125,7 @@ export const handler = async (event) => {
 
 
         // Prepare email to send to user and business owner using SES
-        console.log("Preparing email to send to user...");
+        console.log("Preparing emails to send...");
 
         // Format inquiryDetails for email
         // Function to format inquiry details for email display
@@ -161,10 +161,6 @@ We appreciate your interest and will contact you within 24-48 hours.
 Best regards,
 The Premier Mortgage Team
         `;
-
-
-        // Preparing email to send to business owner
-        console.log("Preparing email to send to business owner...");
 
         const businessEmailSubject = "New Inquiry Received - " + referenceId;
         const businessEmailBody = `

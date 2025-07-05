@@ -25,7 +25,7 @@ variable "aws_dynamodb_table_name" {
 variable "aws_ses_email_identity" {
   description = "The email identity for SES"
   type = string
-  default = "gur_579@hotmail.com"
+  default = "" // add email
 }
 
 variable "aws_ses_configuration_set" {
@@ -72,4 +72,12 @@ variable "lambda_iam_role_policy_name" {
     description = "The name of the IAM policy for the Lambda function"
     type = string
     default = "PremierMortgage-Lambda-Role-Policy"
+}
+
+
+// Monitoring Variables
+variable "aws_sns_topic_subscription" {
+  description = "Email to subscribe to Lambda Error notifications"
+  type = string
+  default = "" // add email
 }
