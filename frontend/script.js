@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // API Gateway URL
   // Hardcoded for development
-  const apiGatewayUrl = ""
+  const apiGatewayUrl = "https://jv2amc4awc.execute-api.us-east-1.amazonaws.com/dev/contact-form"
 
   // Form validation rules
   const validationRules = {

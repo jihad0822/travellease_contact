@@ -1,0 +1,1323 @@
+{
+  "version": 4,
+  "terraform_version": "1.11.3",
+  "serial": 66,
+  "lineage": "cfe56098-bc42-6d96-a805-9a28203b118a",
+  "outputs": {
+    "api-gateway-url": {
+      "value": "https://jv2amc4awc.execute-api.us-east-1.amazonaws.com/dev/contact-form",
+      "type": "string"
+    },
+    "s3-bucket-website-endpoint": {
+      "value": "jm-premier-mortgage-bucket.s3-website-us-east-1.amazonaws.com",
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "mode": "data",
+      "type": "archive_file",
+      "name": "contact_form_lambda_zip",
+      "provider": "provider[\"registry.terraform.io/hashicorp/archive\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "exclude_symlink_directories": null,
+            "excludes": null,
+            "id": "a5d2543c2d10dc95e5f2b9c510be888d0c08f83c",
+            "output_base64sha256": "kaoSEHI7hCvNiMmDw936KoRuNferUXmuz0nFGjZbtog=",
+            "output_base64sha512": "/AIVSeMErkHrG8NtBsdarfwaF85v+VLxgj8Vzm4JvsrwDmyCt6FTp9wkKomIGFhHzklsAgbcpCdyj10YugNplA==",
+            "output_file_mode": null,
+            "output_md5": "28f632e6d9107d77e107042e6a8fb5e2",
+            "output_path": "./../contact_form_lambda.zip",
+            "output_sha": "a5d2543c2d10dc95e5f2b9c510be888d0c08f83c",
+            "output_sha256": "91aa1210723b842bcd88c983c3ddfa2a846e35f7ab5179aecf49c51a365bb688",
+            "output_sha512": "fc021549e304ae41eb1bc36d06c75aadfc1a17ce6ff952f1823f15ce6e09becaf00e6c82b7a153a7dc242a8988185847ce496c0206dca427728f5d18ba036994",
+            "output_size": 14597597,
+            "source": [],
+            "source_content": null,
+            "source_content_filename": null,
+            "source_dir": "./../lambda",
+            "source_file": null,
+            "type": "zip"
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_api_gateway_deployment",
+      "name": "contact_form_deployment",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "created_date": "2025-07-15T13:20:24Z",
+            "description": "",
+            "id": "j6fo71",
+            "region": "ca-central-1",
+            "rest_api_id": "jv2amc4awc",
+            "triggers": {
+              "redeploy": "4a27db59fdc44603385872f1ec533ccb7ec54272"
+            },
+            "variables": null
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_api_gateway_integration.contact_form_cors_integration",
+            "aws_api_gateway_integration.contact_form_post_integration",
+            "aws_api_gateway_integration_response.contact_form_cors_integration_response",
+            "aws_api_gateway_method.contact_form_cors_method",
+            "aws_api_gateway_method.contact_form_post_method",
+            "aws_api_gateway_method_response.contact_form_cors_method_response",
+            "aws_api_gateway_method_response.contact_form_post_method_response",
+            "aws_api_gateway_resource.contact_form",
+            "aws_api_gateway_rest_api.contact_form_api",
+            "aws_iam_role.lambda_iam_role",
+            "aws_lambda_function.contact_form_lambda_handler",
+            "data.archive_file.contact_form_lambda_zip"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_api_gateway_integration",
+      "name": "contact_form_cors_integration",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "cache_key_parameters": [],
+            "cache_namespace": "esbdec",
+            "connection_id": "",
+            "connection_type": "INTERNET",
+            "content_handling": "",
+            "credentials": "",
+            "http_method": "OPTIONS",
+            "id": "agi-jv2amc4awc-esbdec-OPTIONS",
+            "integration_http_method": "",
+            "passthrough_behavior": "WHEN_NO_MATCH",
+            "region": "ca-central-1",
+            "request_parameters": {},
+            "request_templates": {
+              "application/json": "{\"statusCode\":200}"
+            },
+            "resource_id": "esbdec",
+            "rest_api_id": "jv2amc4awc",
+            "timeout_milliseconds": 29000,
+            "tls_config": [],
+            "type": "MOCK",
+            "uri": ""
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_api_gateway_method.contact_form_cors_method",
+            "aws_api_gateway_resource.contact_form",
+            "aws_api_gateway_rest_api.contact_form_api"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_api_gateway_integration",
+      "name": "contact_form_post_integration",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "cache_key_parameters": [],
+            "cache_namespace": "esbdec",
+            "connection_id": "",
+            "connection_type": "INTERNET",
+            "content_handling": "",
+            "credentials": "",
+            "http_method": "POST",
+            "id": "agi-jv2amc4awc-esbdec-POST",
+            "integration_http_method": "POST",
+            "passthrough_behavior": "WHEN_NO_MATCH",
+            "region": "ca-central-1",
+            "request_parameters": {},
+            "request_templates": {},
+            "resource_id": "esbdec",
+            "rest_api_id": "jv2amc4awc",
+            "timeout_milliseconds": 29000,
+            "tls_config": [],
+            "type": "AWS_PROXY",
+            "uri": "arn:aws:apigateway:ca-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ca-central-1:340752802272:function:PremierMortgage-Contact-Form-Handler/invocations"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_api_gateway_method.contact_form_post_method",
+            "aws_api_gateway_resource.contact_form",
+            "aws_api_gateway_rest_api.contact_form_api",
+            "aws_iam_role.lambda_iam_role",
+            "aws_lambda_function.contact_form_lambda_handler",
+            "data.archive_file.contact_form_lambda_zip"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_api_gateway_integration_response",
+      "name": "contact_form_cors_integration_response",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "content_handling": "",
+            "http_method": "OPTIONS",
+            "id": "agir-jv2amc4awc-esbdec-OPTIONS-200",
+            "region": "ca-central-1",
+            "resource_id": "esbdec",
+            "response_parameters": {
+              "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+              "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'",
+              "method.response.header.Access-Control-Allow-Origin": "'*'"
+            },
+            "response_templates": {},
+            "rest_api_id": "jv2amc4awc",
+            "selection_pattern": "",
+            "status_code": "200"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_api_gateway_integration.contact_form_cors_integration",
+            "aws_api_gateway_method.contact_form_cors_method",
+            "aws_api_gateway_method_response.contact_form_cors_method_response",
+            "aws_api_gateway_resource.contact_form",
+            "aws_api_gateway_rest_api.contact_form_api"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_api_gateway_method",
+      "name": "contact_form_cors_method",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_key_required": false,
+            "authorization": "NONE",
+            "authorization_scopes": [],
+            "authorizer_id": "",
+            "http_method": "OPTIONS",
+            "id": "agm-jv2amc4awc-esbdec-OPTIONS",
+            "operation_name": "",
+            "region": "ca-central-1",
+            "request_models": {},
+            "request_parameters": {},
+            "request_validator_id": "",
+            "resource_id": "esbdec",
+            "rest_api_id": "jv2amc4awc"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_api_gateway_resource.contact_form",
+            "aws_api_gateway_rest_api.contact_form_api"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_api_gateway_method",
+      "name": "contact_form_post_method",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_key_required": false,
+            "authorization": "NONE",
+            "authorization_scopes": [],
+            "authorizer_id": "",
+            "http_method": "POST",
+            "id": "agm-jv2amc4awc-esbdec-POST",
+            "operation_name": "",
+            "region": "ca-central-1",
+            "request_models": {},
+            "request_parameters": {},
+            "request_validator_id": "",
+            "resource_id": "esbdec",
+            "rest_api_id": "jv2amc4awc"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_api_gateway_resource.contact_form",
+            "aws_api_gateway_rest_api.contact_form_api"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_api_gateway_method_response",
+      "name": "contact_form_cors_method_response",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "http_method": "OPTIONS",
+            "id": "agmr-jv2amc4awc-esbdec-OPTIONS-200",
+            "region": "ca-central-1",
+            "resource_id": "esbdec",
+            "response_models": {},
+            "response_parameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true,
+              "method.response.header.Access-Control-Allow-Origin": true
+            },
+            "rest_api_id": "jv2amc4awc",
+            "status_code": "200"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_api_gateway_method.contact_form_cors_method",
+            "aws_api_gateway_resource.contact_form",
+            "aws_api_gateway_rest_api.contact_form_api"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_api_gateway_method_response",
+      "name": "contact_form_post_method_response",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "http_method": "POST",
+            "id": "agmr-jv2amc4awc-esbdec-POST-200",
+            "region": "ca-central-1",
+            "resource_id": "esbdec",
+            "response_models": {},
+            "response_parameters": {
+              "method.response.header.Access-Control-Allow-Origin": true
+            },
+            "rest_api_id": "jv2amc4awc",
+            "status_code": "200"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_api_gateway_method.contact_form_post_method",
+            "aws_api_gateway_resource.contact_form",
+            "aws_api_gateway_rest_api.contact_form_api"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_api_gateway_resource",
+      "name": "contact_form",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "esbdec",
+            "parent_id": "e17336e2qd",
+            "path": "/contact-form",
+            "path_part": "contact-form",
+            "region": "ca-central-1",
+            "rest_api_id": "jv2amc4awc"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_api_gateway_rest_api.contact_form_api"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_api_gateway_rest_api",
+      "name": "contact_form_api",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "api_key_source": "HEADER",
+            "arn": "arn:aws:apigateway:ca-central-1::/restapis/jv2amc4awc",
+            "binary_media_types": [],
+            "body": null,
+            "created_date": "2025-07-15T13:20:10Z",
+            "description": "API for Contact Form",
+            "disable_execute_api_endpoint": false,
+            "endpoint_configuration": [
+              {
+                "ip_address_type": "ipv4",
+                "types": [
+                  "REGIONAL"
+                ],
+                "vpc_endpoint_ids": []
+              }
+            ],
+            "execution_arn": "arn:aws:execute-api:ca-central-1:340752802272:jv2amc4awc",
+            "fail_on_warnings": null,
+            "id": "jv2amc4awc",
+            "minimum_compression_size": "",
+            "name": "PremierMortgage-API-ContactForm",
+            "parameters": null,
+            "policy": "",
+            "put_rest_api_mode": null,
+            "region": "ca-central-1",
+            "root_resource_id": "e17336e2qd",
+            "tags": {},
+            "tags_all": {}
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_api_gateway_stage",
+      "name": "contact_form_stage",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "access_log_settings": [],
+            "arn": "arn:aws:apigateway:ca-central-1::/restapis/jv2amc4awc/stages/dev",
+            "cache_cluster_enabled": false,
+            "cache_cluster_size": "",
+            "canary_settings": [],
+            "client_certificate_id": "",
+            "deployment_id": "j6fo71",
+            "description": "",
+            "documentation_version": "",
+            "execution_arn": "arn:aws:execute-api:ca-central-1:340752802272:jv2amc4awc/dev",
+            "id": "ags-jv2amc4awc-dev",
+            "invoke_url": "https://jv2amc4awc.execute-api.ca-central-1.amazonaws.com/dev",
+            "region": "ca-central-1",
+            "rest_api_id": "jv2amc4awc",
+            "stage_name": "dev",
+            "tags": {},
+            "tags_all": {},
+            "variables": {},
+            "web_acl_arn": "",
+            "xray_tracing_enabled": false
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_api_gateway_deployment.contact_form_deployment",
+            "aws_api_gateway_integration.contact_form_cors_integration",
+            "aws_api_gateway_integration.contact_form_post_integration",
+            "aws_api_gateway_integration_response.contact_form_cors_integration_response",
+            "aws_api_gateway_method.contact_form_cors_method",
+            "aws_api_gateway_method.contact_form_post_method",
+            "aws_api_gateway_method_response.contact_form_cors_method_response",
+            "aws_api_gateway_method_response.contact_form_post_method_response",
+            "aws_api_gateway_resource.contact_form",
+            "aws_api_gateway_rest_api.contact_form_api",
+            "aws_iam_role.lambda_iam_role",
+            "aws_lambda_function.contact_form_lambda_handler",
+            "data.archive_file.contact_form_lambda_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_cloudwatch_log_group",
+      "name": "lambda_log_group",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:logs:us-east-1:340752802272:log-group:/aws/lambda/PremierMortgage-Contact-Form-Handler",
+            "id": "/aws/lambda/PremierMortgage-Contact-Form-Handler",
+            "kms_key_id": "",
+            "log_group_class": "STANDARD",
+            "name": "/aws/lambda/PremierMortgage-Contact-Form-Handler",
+            "name_prefix": "",
+            "region": "us-east-1",
+            "retention_in_days": 14,
+            "skip_destroy": false,
+            "tags": {},
+            "tags_all": {}
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_role.lambda_iam_role",
+            "aws_lambda_function.contact_form_lambda_handler",
+            "data.archive_file.contact_form_lambda_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_cloudwatch_log_metric_filter",
+      "name": "error_filter",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "PremierMortgage-Contact-Form-Handler-error-metric-filter",
+            "log_group_name": "/aws/lambda/PremierMortgage-Contact-Form-Handler",
+            "metric_transformation": [
+              {
+                "default_value": "0",
+                "dimensions": {},
+                "name": "ErrorCount",
+                "namespace": "Lambda/Errors",
+                "unit": "None",
+                "value": "1"
+              }
+            ],
+            "name": "PremierMortgage-Contact-Form-Handler-error-metric-filter",
+            "pattern": "ERROR",
+            "region": "us-east-1"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_cloudwatch_log_group.lambda_log_group",
+            "aws_iam_role.lambda_iam_role",
+            "aws_lambda_function.contact_form_lambda_handler",
+            "data.archive_file.contact_form_lambda_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "error_alarm",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "actions_enabled": true,
+            "alarm_actions": [
+              "arn:aws:sns:ca-central-1:340752802272:PremierMortgage-Contact-Form-Handler-errors"
+            ],
+            "alarm_description": "Alert when Lambda logs contain ERROR",
+            "alarm_name": "PremierMortgage-Contact-Form-Handler-error-alarm",
+            "arn": "arn:aws:cloudwatch:ca-central-1:340752802272:alarm:PremierMortgage-Contact-Form-Handler-error-alarm",
+            "comparison_operator": "GreaterThanOrEqualToThreshold",
+            "datapoints_to_alarm": 0,
+            "dimensions": {},
+            "evaluate_low_sample_count_percentiles": "",
+            "evaluation_periods": 1,
+            "extended_statistic": "",
+            "id": "PremierMortgage-Contact-Form-Handler-error-alarm",
+            "insufficient_data_actions": [],
+            "metric_name": "ErrorCount",
+            "metric_query": [],
+            "namespace": "Lambda/Errors",
+            "ok_actions": [],
+            "period": 300,
+            "region": "ca-central-1",
+            "statistic": "Sum",
+            "tags": {
+              "Name": "PremierMortgage-Contact-Form-Handler-error-alarm"
+            },
+            "tags_all": {
+              "Name": "PremierMortgage-Contact-Form-Handler-error-alarm"
+            },
+            "threshold": 1,
+            "threshold_metric_id": "",
+            "treat_missing_data": "notBreaching",
+            "unit": ""
+          },
+          "sensitive_attributes": [],
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ==",
+          "dependencies": [
+            "aws_iam_role.lambda_iam_role",
+            "aws_lambda_function.contact_form_lambda_handler",
+            "aws_sns_topic.lambda_error",
+            "data.archive_file.contact_form_lambda_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_dynamodb_table",
+      "name": "dynamodb_table",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:dynamodb:us-east-1:340752802272:table/MyPremierMortgage-ContactForm-Responses",
+            "attribute": [
+              {
+                "name": "referenceId",
+                "type": "S"
+              }
+            ],
+            "billing_mode": "PAY_PER_REQUEST",
+            "deletion_protection_enabled": false,
+            "global_secondary_index": [],
+            "hash_key": "referenceId",
+            "id": "MyPremierMortgage-ContactForm-Responses",
+            "import_table": [],
+            "local_secondary_index": [],
+            "name": "MyPremierMortgage-ContactForm-Responses",
+            "on_demand_throughput": [],
+            "point_in_time_recovery": [
+              {
+                "enabled": false,
+                "recovery_period_in_days": 0
+              }
+            ],
+            "range_key": null,
+            "read_capacity": 0,
+            "region": "us-east-1",
+            "replica": [],
+            "restore_date_time": null,
+            "restore_source_name": null,
+            "restore_source_table_arn": null,
+            "restore_to_latest_time": null,
+            "server_side_encryption": [],
+            "stream_arn": "",
+            "stream_enabled": false,
+            "stream_label": "",
+            "stream_view_type": "",
+            "table_class": "STANDARD",
+            "tags": {
+              "Name": "Contact Form Responses Database"
+            },
+            "tags_all": {
+              "Name": "Contact Form Responses Database"
+            },
+            "timeouts": null,
+            "ttl": [
+              {
+                "attribute_name": "",
+                "enabled": false
+              }
+            ],
+            "write_capacity": 0
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjYwMDAwMDAwMDAwMCwidXBkYXRlIjozNjAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "lambda_iam_role",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::340752802272:role/PremierMortgage-Lambda-Role",
+            "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"lambda.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+            "create_date": "2025-07-15T13:20:10Z",
+            "description": "",
+            "force_detach_policies": false,
+            "id": "PremierMortgage-Lambda-Role",
+            "inline_policy": [
+              {
+                "name": "PremierMortgage-Lambda-Role-Policy",
+                "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"dynamodb:PutItem\",\"dynamodb:UpdateItem\",\"dynamodb:GetItem\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:dynamodb:us-east-1:340752802272:table/MyPremierMortgage-ContactForm-Responses\"},{\"Action\":[\"ses:SendEmail\",\"ses:SendRawEmail\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:ses:us-east-1:340752802272:identity/jihadmuhammad822@gmail.com\"},{\"Action\":[\"logs:CreateLogGroup\",\"logs:CreateLogStream\",\"logs:PutLogEvents\"],\"Effect\":\"Allow\",\"Resource\":\"*\"}]}"
+              }
+            ],
+            "managed_policy_arns": [],
+            "max_session_duration": 3600,
+            "name": "PremierMortgage-Lambda-Role",
+            "name_prefix": "",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": {},
+            "tags_all": {},
+            "unique_id": "AROAU6VTTEHQP35IXFYRI"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "lambda_iam_role_policy",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "PremierMortgage-Lambda-Role:PremierMortgage-Lambda-Role-Policy",
+            "name": "PremierMortgage-Lambda-Role-Policy",
+            "name_prefix": "",
+            "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"dynamodb:PutItem\",\"dynamodb:UpdateItem\",\"dynamodb:GetItem\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:dynamodb:us-east-1:340752802272:table/MyPremierMortgage-ContactForm-Responses\"},{\"Action\":[\"ses:SendEmail\",\"ses:SendRawEmail\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:ses:us-east-1:340752802272:identity/jihadmuhammad822@gmail.com\"},{\"Action\":[\"logs:CreateLogGroup\",\"logs:CreateLogStream\",\"logs:PutLogEvents\"],\"Effect\":\"Allow\",\"Resource\":\"*\"}]}",
+            "role": "PremierMortgage-Lambda-Role"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_dynamodb_table.dynamodb_table",
+            "aws_iam_role.lambda_iam_role",
+            "aws_ses_email_identity.email_identity"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_function",
+      "name": "contact_form_lambda_handler",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "architectures": [
+              "x86_64"
+            ],
+            "arn": "arn:aws:lambda:ca-central-1:340752802272:function:PremierMortgage-Contact-Form-Handler",
+            "code_sha256": "kaoSEHI7hCvNiMmDw936KoRuNferUXmuz0nFGjZbtog=",
+            "code_signing_config_arn": "",
+            "dead_letter_config": [],
+            "description": "Lambda function to handle contact form submissions",
+            "environment": [
+              {
+                "variables": {
+                  "DYNAMODB_TABLE_NAME": "MyPremierMortgage-ContactForm-Responses",
+                  "SES_EMAIL_IDENTITY": "jihadmuhammad822@gmail.com"
+                }
+              }
+            ],
+            "ephemeral_storage": [
+              {
+                "size": 512
+              }
+            ],
+            "file_system_config": [],
+            "filename": "./../contact_form_lambda.zip",
+            "function_name": "PremierMortgage-Contact-Form-Handler",
+            "handler": "index.handler",
+            "id": "PremierMortgage-Contact-Form-Handler",
+            "image_config": [],
+            "image_uri": "",
+            "invoke_arn": "arn:aws:apigateway:ca-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ca-central-1:340752802272:function:PremierMortgage-Contact-Form-Handler/invocations",
+            "kms_key_arn": "",
+            "last_modified": "2025-07-15T13:24:49.000+0000",
+            "layers": [],
+            "logging_config": [
+              {
+                "application_log_level": "",
+                "log_format": "Text",
+                "log_group": "/aws/lambda/PremierMortgage-Contact-Form-Handler",
+                "system_log_level": ""
+              }
+            ],
+            "memory_size": 128,
+            "package_type": "Zip",
+            "publish": false,
+            "qualified_arn": "arn:aws:lambda:ca-central-1:340752802272:function:PremierMortgage-Contact-Form-Handler:$LATEST",
+            "qualified_invoke_arn": "arn:aws:apigateway:ca-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ca-central-1:340752802272:function:PremierMortgage-Contact-Form-Handler:$LATEST/invocations",
+            "region": "ca-central-1",
+            "replace_security_groups_on_destroy": null,
+            "replacement_security_group_ids": null,
+            "reserved_concurrent_executions": -1,
+            "role": "arn:aws:iam::340752802272:role/PremierMortgage-Lambda-Role",
+            "runtime": "nodejs22.x",
+            "s3_bucket": null,
+            "s3_key": null,
+            "s3_object_version": null,
+            "signing_job_arn": "",
+            "signing_profile_version_arn": "",
+            "skip_destroy": false,
+            "snap_start": [],
+            "source_code_hash": "kaoSEHI7hCvNiMmDw936KoRuNferUXmuz0nFGjZbtog=",
+            "source_code_size": 14597597,
+            "tags": {},
+            "tags_all": {},
+            "timeout": 30,
+            "timeouts": null,
+            "tracing_config": [
+              {
+                "mode": "PassThrough"
+              }
+            ],
+            "version": "$LATEST",
+            "vpc_config": []
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "aws_iam_role.lambda_iam_role",
+            "data.archive_file.contact_form_lambda_zip"
+          ],
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_permission",
+      "name": "allow_contact_form_api_gateway",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "action": "lambda:InvokeFunction",
+            "event_source_token": null,
+            "function_name": "PremierMortgage-Contact-Form-Handler",
+            "function_url_auth_type": null,
+            "id": "AllowExecutionFromAPIGateway",
+            "principal": "apigateway.amazonaws.com",
+            "principal_org_id": null,
+            "qualifier": "",
+            "region": "ca-central-1",
+            "source_account": null,
+            "source_arn": "arn:aws:execute-api:ca-central-1:340752802272:jv2amc4awc/*/*",
+            "statement_id": "AllowExecutionFromAPIGateway",
+            "statement_id_prefix": ""
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_api_gateway_rest_api.contact_form_api",
+            "aws_iam_role.lambda_iam_role",
+            "aws_lambda_function.contact_form_lambda_handler",
+            "data.archive_file.contact_form_lambda_zip"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "s3_bucket",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "acceleration_status": "",
+            "acl": null,
+            "arn": "arn:aws:s3:::jm-premier-mortgage-bucket",
+            "bucket": "jm-premier-mortgage-bucket",
+            "bucket_domain_name": "jm-premier-mortgage-bucket.s3.amazonaws.com",
+            "bucket_prefix": "",
+            "bucket_region": "us-east-1",
+            "bucket_regional_domain_name": "jm-premier-mortgage-bucket.s3.us-east-1.amazonaws.com",
+            "cors_rule": [],
+            "force_destroy": false,
+            "grant": [
+              {
+                "id": "7a0881ba7ee599c02cb4a1c6879c5e171a0ccf6bc3a0e6a7565650f646d57cff",
+                "permissions": [
+                  "FULL_CONTROL"
+                ],
+                "type": "CanonicalUser",
+                "uri": ""
+              }
+            ],
+            "hosted_zone_id": "Z3AQBSTGFYJSTF",
+            "id": "jm-premier-mortgage-bucket",
+            "lifecycle_rule": [],
+            "logging": [],
+            "object_lock_configuration": [],
+            "object_lock_enabled": false,
+            "policy": "{\"Statement\":[{\"Action\":\"s3:GetObject\",\"Effect\":\"Allow\",\"Principal\":\"*\",\"Resource\":\"arn:aws:s3:::jm-premier-mortgage-bucket/*\",\"Sid\":\"PublicReadGetObject\"}],\"Version\":\"2012-10-17\"}",
+            "region": "us-east-1",
+            "replication_configuration": [],
+            "request_payer": "BucketOwner",
+            "server_side_encryption_configuration": [
+              {
+                "rule": [
+                  {
+                    "apply_server_side_encryption_by_default": [
+                      {
+                        "kms_master_key_id": "",
+                        "sse_algorithm": "AES256"
+                      }
+                    ],
+                    "bucket_key_enabled": false
+                  }
+                ]
+              }
+            ],
+            "tags": {
+              "Name": "Contact Form Website Bucket"
+            },
+            "tags_all": {
+              "Name": "Contact Form Website Bucket"
+            },
+            "timeouts": null,
+            "versioning": [
+              {
+                "enabled": false,
+                "mfa_delete": false
+              }
+            ],
+            "website": [
+              {
+                "error_document": "",
+                "index_document": "index.html",
+                "redirect_all_requests_to": "",
+                "routing_rules": ""
+              }
+            ],
+            "website_domain": "s3-website-us-east-1.amazonaws.com",
+            "website_endpoint": "jm-premier-mortgage-bucket.s3-website-us-east-1.amazonaws.com"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInJlYWQiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19"
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_ownership_controls",
+      "name": "s3_bucket_ownership_controls",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "jm-premier-mortgage-bucket",
+            "id": "jm-premier-mortgage-bucket",
+            "region": "us-east-1",
+            "rule": [
+              {
+                "object_ownership": "BucketOwnerPreferred"
+              }
+            ]
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.s3_bucket"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_policy",
+      "name": "s3_bucket_policy",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "jm-premier-mortgage-bucket",
+            "id": "jm-premier-mortgage-bucket",
+            "policy": "{\"Statement\":[{\"Action\":\"s3:GetObject\",\"Effect\":\"Allow\",\"Principal\":\"*\",\"Resource\":\"arn:aws:s3:::jm-premier-mortgage-bucket/*\",\"Sid\":\"PublicReadGetObject\"}],\"Version\":\"2012-10-17\"}",
+            "region": "us-east-1"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.s3_bucket",
+            "aws_s3_bucket_public_access_block.s3_bucket_public_access_block"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_public_access_block",
+      "name": "s3_bucket_public_access_block",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "block_public_acls": false,
+            "block_public_policy": false,
+            "bucket": "jm-premier-mortgage-bucket",
+            "id": "jm-premier-mortgage-bucket",
+            "ignore_public_acls": false,
+            "region": "us-east-1",
+            "restrict_public_buckets": false
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.s3_bucket"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_website_configuration",
+      "name": "s3_bucket_website_configuration",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "jm-premier-mortgage-bucket",
+            "error_document": [],
+            "expected_bucket_owner": "",
+            "id": "jm-premier-mortgage-bucket",
+            "index_document": [
+              {
+                "suffix": "index.html"
+              }
+            ],
+            "redirect_all_requests_to": [],
+            "region": "us-east-1",
+            "routing_rule": [],
+            "routing_rules": "",
+            "website_domain": "s3-website-us-east-1.amazonaws.com",
+            "website_endpoint": "jm-premier-mortgage-bucket.s3-website-us-east-1.amazonaws.com"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.s3_bucket"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_object",
+      "name": "index_html",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "acl": null,
+            "arn": "arn:aws:s3:::jm-premier-mortgage-bucket/index.html",
+            "bucket": "jm-premier-mortgage-bucket",
+            "bucket_key_enabled": false,
+            "cache_control": "",
+            "checksum_algorithm": null,
+            "checksum_crc32": "",
+            "checksum_crc32c": "",
+            "checksum_crc64nvme": "",
+            "checksum_sha1": "",
+            "checksum_sha256": "",
+            "content": null,
+            "content_base64": null,
+            "content_disposition": "",
+            "content_encoding": "",
+            "content_language": "",
+            "content_type": "text/html",
+            "etag": "7626d2fa30282d643cb187f03d7c10f9",
+            "force_destroy": false,
+            "id": "jm-premier-mortgage-bucket/index.html",
+            "key": "index.html",
+            "kms_key_id": null,
+            "metadata": {},
+            "object_lock_legal_hold_status": "",
+            "object_lock_mode": "",
+            "object_lock_retain_until_date": "",
+            "override_provider": [],
+            "region": "us-east-1",
+            "server_side_encryption": "AES256",
+            "source": "./../frontend/index.html",
+            "source_hash": null,
+            "storage_class": "STANDARD",
+            "tags": {},
+            "tags_all": {},
+            "version_id": "",
+            "website_redirect": ""
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.s3_bucket"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_object",
+      "name": "script_js",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "acl": null,
+            "arn": "arn:aws:s3:::jm-premier-mortgage-bucket/script.js",
+            "bucket": "jm-premier-mortgage-bucket",
+            "bucket_key_enabled": false,
+            "cache_control": "",
+            "checksum_algorithm": null,
+            "checksum_crc32": "",
+            "checksum_crc32c": "",
+            "checksum_crc64nvme": "",
+            "checksum_sha1": "",
+            "checksum_sha256": "",
+            "content": null,
+            "content_base64": null,
+            "content_disposition": "",
+            "content_encoding": "",
+            "content_language": "",
+            "content_type": "application/javascript",
+            "etag": "3a0b32f321e1dfae18302625d4dcc6de",
+            "force_destroy": false,
+            "id": "jm-premier-mortgage-bucket/script.js",
+            "key": "script.js",
+            "kms_key_id": null,
+            "metadata": {},
+            "object_lock_legal_hold_status": "",
+            "object_lock_mode": "",
+            "object_lock_retain_until_date": "",
+            "override_provider": [],
+            "region": "us-east-1",
+            "server_side_encryption": "AES256",
+            "source": "./../frontend/script.js",
+            "source_hash": null,
+            "storage_class": "STANDARD",
+            "tags": {},
+            "tags_all": {},
+            "version_id": "",
+            "website_redirect": ""
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.s3_bucket"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_object",
+      "name": "style_css",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "acl": null,
+            "arn": "arn:aws:s3:::jm-premier-mortgage-bucket/styles.css",
+            "bucket": "jm-premier-mortgage-bucket",
+            "bucket_key_enabled": false,
+            "cache_control": "",
+            "checksum_algorithm": null,
+            "checksum_crc32": "",
+            "checksum_crc32c": "",
+            "checksum_crc64nvme": "",
+            "checksum_sha1": "",
+            "checksum_sha256": "",
+            "content": null,
+            "content_base64": null,
+            "content_disposition": "",
+            "content_encoding": "",
+            "content_language": "",
+            "content_type": "text/css",
+            "etag": "69cb3b73e9666bb00ebd92113da00c01",
+            "force_destroy": false,
+            "id": "jm-premier-mortgage-bucket/styles.css",
+            "key": "styles.css",
+            "kms_key_id": null,
+            "metadata": {},
+            "object_lock_legal_hold_status": "",
+            "object_lock_mode": "",
+            "object_lock_retain_until_date": "",
+            "override_provider": [],
+            "region": "us-east-1",
+            "server_side_encryption": "AES256",
+            "source": "./../frontend/styles.css",
+            "source_hash": null,
+            "storage_class": "STANDARD",
+            "tags": {},
+            "tags_all": {},
+            "version_id": "",
+            "website_redirect": ""
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.s3_bucket"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_ses_configuration_set",
+      "name": "ses_configuration_set",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:ses:ca-central-1:340752802272:configuration-set/PremierMortgage-Configuration-Set",
+            "delivery_options": [
+              {
+                "tls_policy": "Require"
+              }
+            ],
+            "id": "PremierMortgage-Configuration-Set",
+            "last_fresh_start": "0001-01-01T00:00:00Z",
+            "name": "PremierMortgage-Configuration-Set",
+            "region": "ca-central-1",
+            "reputation_metrics_enabled": true,
+            "sending_enabled": true,
+            "tracking_options": []
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_ses_email_identity",
+      "name": "email_identity",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:ses:us-east-1:340752802272:identity/jihadmuhammad822@gmail.com",
+            "email": "jihadmuhammad822@gmail.com",
+            "id": "jihadmuhammad822@gmail.com",
+            "region": "us-east-1"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_ses_event_destination",
+      "name": "ses_event_destination",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:ses:ca-central-1:340752802272:configuration-set/PremierMortgage-Configuration-Set:event-destination/PremierMortgage-Configuration-Set-event-destination",
+            "cloudwatch_destination": [
+              {
+                "default_value": "0",
+                "dimension_name": "dimension",
+                "value_source": "messageTag"
+              }
+            ],
+            "configuration_set_name": "PremierMortgage-Configuration-Set",
+            "enabled": true,
+            "id": "PremierMortgage-Configuration-Set-event-destination",
+            "kinesis_destination": [],
+            "matching_types": [
+              "bounce",
+              "complaint"
+            ],
+            "name": "PremierMortgage-Configuration-Set-event-destination",
+            "region": "ca-central-1",
+            "sns_destination": []
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_ses_configuration_set.ses_configuration_set"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_sns_topic",
+      "name": "lambda_error",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "application_failure_feedback_role_arn": "",
+            "application_success_feedback_role_arn": "",
+            "application_success_feedback_sample_rate": 0,
+            "archive_policy": "",
+            "arn": "arn:aws:sns:ca-central-1:340752802272:PremierMortgage-Contact-Form-Handler-errors",
+            "beginning_archive_time": "",
+            "content_based_deduplication": false,
+            "delivery_policy": "",
+            "display_name": "",
+            "fifo_throughput_scope": "",
+            "fifo_topic": false,
+            "firehose_failure_feedback_role_arn": "",
+            "firehose_success_feedback_role_arn": "",
+            "firehose_success_feedback_sample_rate": 0,
+            "http_failure_feedback_role_arn": "",
+            "http_success_feedback_role_arn": "",
+            "http_success_feedback_sample_rate": 0,
+            "id": "arn:aws:sns:ca-central-1:340752802272:PremierMortgage-Contact-Form-Handler-errors",
+            "kms_master_key_id": "",
+            "lambda_failure_feedback_role_arn": "",
+            "lambda_success_feedback_role_arn": "",
+            "lambda_success_feedback_sample_rate": 0,
+            "name": "PremierMortgage-Contact-Form-Handler-errors",
+            "name_prefix": "",
+            "owner": "340752802272",
+            "policy": "{\"Id\":\"__default_policy_ID\",\"Statement\":[{\"Action\":[\"SNS:GetTopicAttributes\",\"SNS:SetTopicAttributes\",\"SNS:AddPermission\",\"SNS:RemovePermission\",\"SNS:DeleteTopic\",\"SNS:Subscribe\",\"SNS:ListSubscriptionsByTopic\",\"SNS:Publish\"],\"Condition\":{\"StringEquals\":{\"AWS:SourceOwner\":\"340752802272\"}},\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"*\"},\"Resource\":\"arn:aws:sns:ca-central-1:340752802272:PremierMortgage-Contact-Form-Handler-errors\",\"Sid\":\"__default_statement_ID\"}],\"Version\":\"2008-10-17\"}",
+            "region": "ca-central-1",
+            "signature_version": 0,
+            "sqs_failure_feedback_role_arn": "",
+            "sqs_success_feedback_role_arn": "",
+            "sqs_success_feedback_sample_rate": 0,
+            "tags": {},
+            "tags_all": {},
+            "tracing_config": ""
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_role.lambda_iam_role",
+            "aws_lambda_function.contact_form_lambda_handler",
+            "data.archive_file.contact_form_lambda_zip"
+          ]
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}

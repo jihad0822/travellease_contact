@@ -1,7 +1,7 @@
 variable "aws_region" {
   description = "The AWS region where the resources will be created"
   type = string
-  default = "ca-central-1"
+  default = "us-east-1"
 }
 
 
@@ -9,7 +9,7 @@ variable "aws_region" {
 variable "aws_s3_bucket_name" {
   description = "The name of the S3 bucket for the static website"
   type = string
-  default = "gs-premier-mortgage-bucket"
+  default = "jm-premier-mortgage-bucket"
 }
 
 
@@ -17,7 +17,7 @@ variable "aws_s3_bucket_name" {
 variable "aws_dynamodb_table_name" {
   description = "The name of the DynamoDB table for storing contact form submissions"
   type = string
-  default = "PremierMortgage-ContactForm-Responses"
+  default = "MyPremierMortgage-ContactForm-Responses"
 }
 
 
@@ -25,7 +25,7 @@ variable "aws_dynamodb_table_name" {
 variable "aws_ses_email_identity" {
   description = "The email identity for SES"
   type = string
-  default = "" // add email
+  default = "jihadmuhammad822@gmail.com" // add email
 }
 
 variable "aws_ses_configuration_set" {
@@ -79,5 +79,5 @@ variable "lambda_iam_role_policy_name" {
 variable "aws_sns_topic_subscription" {
   description = "Email to subscribe to Lambda Error notifications"
   type = string
-  default = "" // add email
+  default = "jihadmuhammad822@gmail.com" // add email
 }
